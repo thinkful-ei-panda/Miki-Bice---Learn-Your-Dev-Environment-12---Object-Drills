@@ -121,3 +121,140 @@ for (let i = 0; i < theOffice.length; i++) {
         console.log(theOffice[i][x]);
     }
 }
+
+
+/*
+
+6. Cracking the code
+
+Redo your Cracking the Code problem from String Drills but this time use an object as your cipher. This means, instead of doing some kind of condition check like if (char === 'a'), you should use an object's key-value pair structure as the code translator.
+
+Additionally, create a decodeWords function that utilizes your decode function to accept a single string of words, and then return the fully decoded message as a string.
+
+*/
+
+/*
+
+function decode(encodedWord) {
+    switch(encodedWord[0]) {
+        case "a":
+            return encodedWord[1];
+            break;
+        case "b":
+            return encodedWord[2];
+            break;
+        case "c":
+            return encodedWord[3];
+            break;
+        case "d":
+            return encodedWord[4];
+            break;
+        default:
+            return " ";
+    };
+}
+
+*/
+
+//console.log(decode(encodedWord));
+
+function decode(encodedWord) {
+    let cipher = {
+        "a": encodedWord[1],
+        "b": encodedWord[2],
+        "c": encodedWord[3],
+        "d": encodedWord[4],
+        "e": " ",
+        "f": " ",
+        "g": " ",
+        "h": " ",
+        "i": " ",
+        "j": " ",
+        "k": " ",
+        "l": " ",
+        "m": " ",
+        "n": " ",
+        "o": " ",
+        "p": " ",
+        "q": " ",
+        "r": " ",
+        "s": " ",
+        "t": " ",
+        "u": " ",
+        "v": " ",
+        "w": " ",
+        "x": " ",
+        "y": " ",
+        "z": " ",
+    }
+    return cipher[encodedWord[0]];
+}
+
+function decodeWords(string) {
+
+    let split = string.split(" ");
+    let chars = split.map(function(item) {
+        return decode(item);
+    })
+    let decodedWord = chars.reduce(function(decodedWord, char) {
+        return decodedWord += char;
+    }, "")
+    return decodedWord;
+}
+
+let string = "craft block argon meter bells brown croon droop";
+
+console.log(decodeWords(string));
+
+/*
+8. BONUS: A Database Search
+
+Write a function findOne() that takes in the following two arguments:
+
+arr - array of Heroes objects to search through
+query - object with one or more key/value pairs that must exactly match the target Hero
+The first matching result should be returned even if multiple match. If a match isn't found, return null
+
+*/
+
+
+
+const HEROES = [
+  { id: 1, name: 'Captain America', squad: 'Avengers' },
+  { id: 2, name: 'Iron Man', squad: 'Avengers' },
+  { id: 3, name: 'Spiderman', squad: 'Avengers' },
+  { id: 4, name: 'Superman', squad: 'Justice League' },
+  { id: 5, name: 'Wonder Woman', squad: 'Justice League' },
+  { id: 6, name: 'Aquaman', squad: 'Justice League' },
+  { id: 7, name: 'Hulk', squad: 'Avengers' },
+];
+
+function findOne(arr, query) {
+    let result;
+    arr.forEach(function(item) {
+        for (let x in item) {
+            for (let y in query) {
+                if (item[x] == query[y]) {
+                    return item;
+                }
+            }
+        }
+    })
+    return result;
+}
+
+console.log(findOne(HEROES, {id: 1}));
+
+const Database = {
+    store: {
+      heroes: [
+        { id: 1, name: 'Captain America', squad: 'Avengers' },
+        { id: 2, name: 'Iron Man', squad: 'Avengers' },
+        { id: 3, name: 'Spiderman', squad: 'Avengers' },
+        { id: 4, name: 'Superman', squad: 'Justice League' },
+        { id: 5, name: 'Wonder Woman', squad: 'Justice League' },
+        { id: 6, name: 'Aquaman', squad: 'Justice League' },
+        { id: 7, name: 'Hulk', squad: 'Avengers' },
+      ]
+    }
+  };
