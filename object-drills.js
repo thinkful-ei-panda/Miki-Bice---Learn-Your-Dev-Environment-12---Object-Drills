@@ -55,6 +55,7 @@ for (let x in obj) {
 /*
 
 3. Arrays in objects
+
 Create an object with a property called meals which is an array of strings: 'breakfast', 'second breakfast', 'elevenses', 'lunch', 'afternoon tea', 'dinner', 'supper'.
 Use console.log to show the name of a hobbit's fourth meal of the day.
 Don't forget that humans and hobbits count from 1, but computers count from 0.
@@ -90,6 +91,30 @@ let theOffice = [
     {name: "Victor",
     jobTitle: "Manager"},
 ];
+
+for (let i = 0; i < theOffice.length; i++) {
+    for (let x in theOffice[i]) {
+        console.log(theOffice[i][x]);
+    }
+}
+
+/*
+
+5. Properties that aren't there
+
+Expand on the previous example by adding a boss property to everyone except the owner of the company.
+Change the iteration to print out messages in this format: "${title} ${name} reports to ${boss}.". For example: Junior Engineer Bob reports to Fred..
+What gets printed out for the owner?
+Adjust the message so that people with no boss display "${title} ${name} doesn't report to anybody." - for example, Founder John doesn't report to anybody.
+
+*/
+
+theOffice.forEach( ( item, index ) => {
+
+   if ( item.name !== 'Alex' ) item.boss = false;
+   else item.boss = true;
+
+});
 
 for (let i = 0; i < theOffice.length; i++) {
     for (let x in theOffice[i]) {
