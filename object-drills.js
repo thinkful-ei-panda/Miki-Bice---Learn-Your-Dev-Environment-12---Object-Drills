@@ -1,6 +1,11 @@
+/* eslint-disable indent */
+/* eslint-disable strict */
+
+
+
 /*
 
-Object drills
+Object Drills
 
 1. Object initializers and methods
 
@@ -14,15 +19,15 @@ Call the hydration method and use console.log to print the result.
 
 let loaf = {
 
-    flour: 300,
+  flour: 300,
 
-    water: 210,
+  water: 210,
 
-    hydration () {
+  hydration () {
 
-        return ( loaf.water / loaf.flour ) * 100;
+    return ( loaf.water / loaf.flour ) * 100;
 
-    }
+  }
 
 };
 
@@ -31,6 +36,7 @@ console.log ( loaf.flour, loaf.water );
 console.log ( loaf.hydration() );
 
 /*
+
 2. Iterating over an object's properties
 
 Create an object with five properties: foo, bar, fum, quux, and spam. Give each property a unique value of your choosing.
@@ -40,17 +46,16 @@ Use console.log to show each property name and its associated value.
 */
 
 let obj = {
-    foo: "boo",
-    bar: "keep",
-    fum: "fie",
-    quux: "suux",
-    spam: "breakfast"
+  foo: "boo",
+  bar: "keep",
+  fum: "fie",
+  quux: "suux",
+  spam: "breakfast"
 };
 
 for (let x in obj) {
-    console.log(x, obj[x]);
+  console.log(x, obj[x]);
 };
-
 
 /*
 
@@ -64,7 +69,7 @@ Don't forget that humans and hobbits count from 1, but computers count from 0.
 
 let someObj = {
 
-    meals: [ 'breakfast', 'second breakfast', 'elevenses', 'lunch', 'afternoon tea', 'dinner', 'supper' ]
+  meals: [ 'breakfast', 'second breakfast', 'elevenses', 'lunch', 'afternoon tea', 'dinner', 'supper' ]
 };
 
 console.log ( someObj.meals [ 3 ] );
@@ -80,22 +85,22 @@ Iterate over the array and use console.log to show each person's job title and n
 */
 
 let theOffice = [
-    {name: "Joe",
+  {name: "Joe",
     jobTitle: "Barkeep"},
-    {name: "Tony",
+  {name: "Tony",
     jobTitle: "Runner"},
-    {name: "Alex",
+  {name: "Alex",
     jobTitle: "Server"},
-    {name: "Bobby",
+  {name: "Bobby",
     jobTitle: "Chef"},
-    {name: "Victor",
+  {name: "Victor",
     jobTitle: "Manager"},
 ];
 
 for (let i = 0; i < theOffice.length; i++) {
-    for (let x in theOffice[i]) {
-        console.log(theOffice[i][x]);
-    }
+  for (let x in theOffice[i]) {
+    console.log(theOffice[i][x]);
+  }
 }
 
 /*
@@ -111,110 +116,197 @@ Adjust the message so that people with no boss display "${title} ${name} doesn't
 
 theOffice.forEach( ( item, index ) => {
 
-   if ( item.name !== 'Alex' ) item.boss = false;
-   else item.boss = true;
+  if ( item.name !== 'Alex' ) item.boss = false;
+  else item.boss = true;
 
 });
 
 for (let i = 0; i < theOffice.length; i++) {
-    for (let x in theOffice[i]) {
-        console.log(theOffice[i][x]);
-    }
+  for (let x in theOffice[i]) {
+    console.log(theOffice[i][x]);
+  }
 }
-
 
 /*
 
 6. Cracking the code
-
 Redo your Cracking the Code problem from String Drills but this time use an object as your cipher. This means, instead of doing some kind of condition check like if (char === 'a'), you should use an object's key-value pair structure as the code translator.
 
 Additionally, create a decodeWords function that utilizes your decode function to accept a single string of words, and then return the fully decoded message as a string.
 
 */
 
-/*
-
 function decode(encodedWord) {
     switch(encodedWord[0]) {
-        case "a":
-            return encodedWord[1];
-            break;
-        case "b":
-            return encodedWord[2];
-            break;
-        case "c":
-            return encodedWord[3];
-            break;
-        case "d":
-            return encodedWord[4];
-            break;
-        default:
-            return " ";
-    };
-}
+      case "a":
+        return encodedWord[1];
+        break;
+      case "b":
+        return encodedWord[2];
+        break;
+      case "c":
+        return encodedWord[3];
+        break;
+      case "d":
+        return encodedWord[4];
+        break;
+      default:
+        return " ";
+    }
+  }
+  
+  function decode(encodedWord) {
+    let cipher = {
+      "a": encodedWord[1],
+      "b": encodedWord[2],
+      "c": encodedWord[3],
+      "d": encodedWord[4],
+      "e": " ",
+      "f": " ",
+      "g": " ",
+      "h": " ",
+      "i": " ",
+      "j": " ",
+      "k": " ",
+      "l": " ",
+      "m": " ",
+      "n": " ",
+      "o": " ",
+      "p": " ",
+      "q": " ",
+      "r": " ",
+      "s": " ",
+      "t": " ",
+      "u": " ",
+      "v": " ",
+      "w": " ",
+      "x": " ",
+      "y": " ",
+      "z": " "
+    }
+    return cipher[encodedWord[0]];
+  }
+  
+  function decodeWords(string) {
+    let splits = string.split(" ");
+    let cracker = splits.map(function(split) {
+      return decode(split);  
+    });
+    let message = cracker.reduce(function(message, char) {
+      return message + char;
+    }, "")
+    return message;
+  }
+  
+   console.log(decodeWords("craft block argon meter bells brown croon droop"))
+
+/*
+
+7. Factory Functions with LOTR
+
+Write a factory function called createCharacter (review in this assignment) that could appropriately build characters from LOTR that have the following attributes:
+===============================================================================================
+| Name                      | Nickname    | Race       | Origin         | Attack   | Defense  |
+-----------------------------------------------------------------------------------------------
+| Gandalf the White         | gandalf     | Wizard     | Middle Earth   | 10       | 6        |
+-----------------------------------------------------------------------------------------------
+| Bilbo Baggins             | bilbo       | Hobbit     | The Shire      | 2        | 1        |
+-----------------------------------------------------------------------------------------------
+| Frodo Baggins             | frodo       | Hobbit     | The Shire      | 3        | 2        |
+-----------------------------------------------------------------------------------------------
+| Aragorn son of Arathorn   | aragorn     | Man        | Dunnedain      | 6        | 8        |
+-----------------------------------------------------------------------------------------------
+| Legolas                   | legolas     | Elf        | Woodland Realm | 8        | 5        |
+-----------------------------------------------------------------------------------------------
+
+Each character should have the method describe which takes no parameters and prints out the string: "{name} is a {race} from {origin}."
+
+Each character should also have a method called evaluateFight that takes in a character object and returns the following string: "Your opponent takes {x} damage and you receive {y} damage" where x and y are the differences between each characters attack and defense values. If defense exceeds attack, then take zero damage.
+
+Using array literal syntax, create an array characters that calls your factory function for each character in the table above with the relevant parameters. Your characters array should now have 5 objects in it.
+
+Add a new character to characters (make up any attributes not provided):
+
+Arwen Undomiel is a Half-Elf of Rivendell
+Using the .find() function, retrieve your character nicknamed aragorn from characters and then call his describe method.
+
+Using the .filter() function, create a new array from characters that ONLY contains characters of the race Hobbit.
+
+Using the .filter() function, create a new array from characters that ONLY contains characters with attack value above 5.
+
+What if you wanted to equip a weapon for each character and change how they are described? For example:
+
+Gandolf the White is a Wizard of the Middle Earth who uses a wizard staff
+Bilbo Baggings is a Hobbit of the Shire who uses the Ring
+Frodo ... String and Barrow Blade
+Aragon .... Anduril
+Legolas ... Bow and Arrow
+Arwen .... Hadhafang
+How would you change the factory function and other methods?
 
 */
 
-//console.log(decode(encodedWord));
+let character = {
 
-function decode(encodedWord) {
-    let cipher = {
-        "a": encodedWord[1],
-        "b": encodedWord[2],
-        "c": encodedWord[3],
-        "d": encodedWord[4],
-        "e": " ",
-        "f": " ",
-        "g": " ",
-        "h": " ",
-        "i": " ",
-        "j": " ",
-        "k": " ",
-        "l": " ",
-        "m": " ",
-        "n": " ",
-        "o": " ",
-        "p": " ",
-        "q": " ",
-        "r": " ",
-        "s": " ",
-        "t": " ",
-        "u": " ",
-        "v": " ",
-        "w": " ",
-        "x": " ",
-        "y": " ",
-        "z": " ",
-    }
-    return cipher[encodedWord[0]];
+  { Name:'Gandalf the White', 'Nickname':'gandalf', 'Race':'Wizard', 'Origin':'Middle Earth', 'Attack':'10', 'Defense':'6' },
+
+  { Name:'Bilbo Baggins', 'Nickname':'bilbo', 'Race':'Hobbit', 'Origin':'The Shire', 'Attack':'2', 'Defense':'1' },
+
+  { Name:'Frodo Baggins', 'Nickname':'frodo', 'Race':'Hobbit', 'Origin':'The Shire', 'Attack':'3', 'Defense':'2' },
+
+  { Name:'Aragorn son of Arathorn', 'Nickname':'aragorn', 'Race':'Man', 'Origin':'Dunnedain', 'Attack':'6', 'Defense':'8' },
+
+  { Name:'Legolas', 'Nickname':'legolas', 'Race':'Elf', 'Origin':'Woodland Realm', 'Attack':'8', 'Defense':'5' },
+
+};
+
+function createCharacter ( arr ) {
+  console.log( '***createCharacter start\n' );
+
+  //let describe () => { `${ name } is a ${ race } from ${ origin }`; };
+      
+  //let evaluateFight = ( characterIn ) => { `Your opponent takes ${ x } damage and you receive ${ y } damage" where x and y are the differences between each characters attack and defense values. If defense exceeds attack, then take zero damage.`; };
+
+  for ( const character in arr ) {
+    console.log ( `character.Name == ${ character.Name }` );
+    console.log ( `character.Nickname == ${ character.Nickname }` );
+    console.log ( `character.Race == ${ character.Race }` );
+    console.log ( `character.Origin == ${ character.Origin }` );
+    console.log ( `character.Attack == ${ character.Attack }` );
+    console.log ( `character.Defense == ${ character.Defense }` );
+  }  
+    //console.log ( `${ item [ index ]}\n` );
+  
+    /*let character = {
+
+      name: item [ index ],
+
+      Nickname: item [ index ],
+
+      Race: item [ index ],
+
+      Origin: item [ index ],
+
+      Attack: item [ index ],
+                    
+      Defense: item [ index ],
+
+    };*/
+                
+  //console.log ( character );            
+
+  });
+
 }
 
-function decodeWords(string) {
+createCharacter ( characterInfo );
 
-    let split = string.split(" ");
-    let chars = split.map(function(item) {
-        return decode(item);
-    })
-    let decodedWord = chars.reduce(function(decodedWord, char) {
-        return decodedWord += char;
-    }, "")
-    return decodedWord;
-}
-
-let string = "craft block argon meter bells brown croon droop";
-
-console.log(decodeWords(string));
-
-/*
-8. BONUS: A Database Search
-
+/* 8.
 Write a function findOne() that takes in the following two arguments:
 
 arr - array of Heroes objects to search through
 query - object with one or more key/value pairs that must exactly match the target Hero
 The first matching result should be returned even if multiple match. If a match isn't found, return null
-
 */
 
 const HEROES = [
