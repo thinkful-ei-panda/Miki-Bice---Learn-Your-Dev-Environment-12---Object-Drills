@@ -252,60 +252,181 @@ BICE'S SOLUTION TO #7
 
 */
 
-let character = {
 
-  { Name:'Gandalf the White', 'Nickname':'gandalf', 'Race':'Wizard', 'Origin':'Middle Earth', 'Attack':'10', 'Defense':'6' },
+function createCharacter ( character ) {
 
-  { Name:'Bilbo Baggins', 'Nickname':'bilbo', 'Race':'Hobbit', 'Origin':'The Shire', 'Attack':'2', 'Defense':'1' },
+  console.log ( '\n***createCharacter start\n' );
 
-  { Name:'Frodo Baggins', 'Nickname':'frodo', 'Race':'Hobbit', 'Origin':'The Shire', 'Attack':'3', 'Defense':'2' },
+  //console.log ( character );
 
-  { Name:'Aragorn son of Arathorn', 'Nickname':'aragorn', 'Race':'Man', 'Origin':'Dunnedain', 'Attack':'6', 'Defense':'8' },
+  //console.log ( `\ntype of character == ${ typeof character }\n` );
 
-  { Name:'Legolas', 'Nickname':'legolas', 'Race':'Elf', 'Origin':'Woodland Realm', 'Attack':'8', 'Defense':'5' },
+  //console.log ( `character.Name == ${ character.Name }\n` );
+  this.Name = character.Name;
 
-};
+  //console.log ( `property.Nickname == ${ character.Nickname }\n` );
+  this.Nickname = character.Nickname;
 
-function createCharacter ( arr ) {
-  console.log( '***createCharacter start\n' );
+  //console.log ( `property.Race == ${ character.Race }\n` );
+  this.Race = character.Race;
 
-  //let describe () => { `${ name } is a ${ race } from ${ origin }`; };
-      
-  //let evaluateFight = ( characterIn ) => { `Your opponent takes ${ x } damage and you receive ${ y } damage" where x and y are the differences between each characters attack and defense values. If defense exceeds attack, then take zero damage.`; };
+  //console.log ( `property.Origin == ${ character.Origin }\n` );
+  this.Origin = character.Origin;
 
-  for ( const character in arr ) {
-    console.log ( `character.Name == ${ character.Name }` );
-    console.log ( `character.Nickname == ${ character.Nickname }` );
-    console.log ( `character.Race == ${ character.Race }` );
-    console.log ( `character.Origin == ${ character.Origin }` );
-    console.log ( `character.Attack == ${ character.Attack }` );
-    console.log ( `character.Defense == ${ character.Defense }` );
-  }  
-    //console.log ( `${ item [ index ]}\n` );
+  //console.log ( `property.Attack == ${ character.Attack }\n` );
+  this.Attack = character.Attack;
+
+  //console.log ( `property.Defense == ${ character.Defense }\n` );
+  this.Defense = character.Defense;
   
-    /*let character = {
+  this.Describe = function () { console.log ( `${ this.Name } is a ${ this.Race } from ${ this.Origin }` ); };
+      
+  this.evaluateFight = function ( characterIn ) { 
+    
+    console.log ( '\nBegin evaluate fight\n' );
 
-      name: item [ index ],
+    console.log ( `${ this.Name } has an attack of ${ this.Attack }` );
 
-      Nickname: item [ index ],
+    console.log ( `${ characterIn.Name } has an defense of ${ characterIn.Defense }` );
 
-      Race: item [ index ],
+    let xDamage = 0;
 
-      Origin: item [ index ],
+    if ( this.Attack > characterIn.Defense ) xDamage = this.Attack - characterIn.Defense;
 
-      Attack: item [ index ],
-                    
-      Defense: item [ index ],
+    console.log ( `${ characterIn.Name } takes ${ xDamage } damage` );
 
-    };*/
-                
-  //console.log ( character );            
+    console.log ( '\n' );
+
+    console.log ( `${ this.Name } has an Defense of ${ this.Defense }` );
+
+    console.log ( `${ characterIn.Name } has an attack of ${ characterIn.Attack }` );
+
+    let yDamage = 0;
+
+    if ( characterIn.Attack > this.Defense ) yDamage = characterIn.Attack - this.Defense;
+
+    console.log ( `${ this.Name } takes ${ yDamage } damage` );
+
+  };
+  
+  return this;
+
+}
+
+// Signifies the input of a new character creation:
+
+let gandalf = new createCharacter ( { 'Name':'Gandalf the White', 'Nickname':'gandalf', 'Race':'Wizard', 'Origin':'Middle Earth', 'Attack':10, 'Defense':6 } );
+
+let bilbo = new createCharacter ( { 'Name':'Bilbo Baggins', 'Nickname':'bilbo', 'Race':'Hobbit', 'Origin':'The Shire', 'Attack':2, 'Defense':1 } );
+
+let frodo = new createCharacter ( { 'Name':'Frodo Baggins', 'Nickname':'frodo', 'Race':'Hobbit', 'Origin':'The Shire', 'Attack':3, 'Defense':2 } );
+
+let aragorn = new createCharacter ( { 'Name':'Aragorn son of Arathorn', 'Nickname':'aragorn', 'Race':'Man', 'Origin':'Dunnedain', 'Attack':6, 'Defense':8 } );
+
+let legolas = new createCharacter ( { 'Name':'Legolas', 'Nickname':'legolas', 'Race':'Elf', 'Origin':'Woodland Realm', 'Attack':8, 'Defense':5 } );
+
+let arwen = new createCharacter ( { 'Name':'Arwen Undomiel', 'Nickname':'arwen', 'Race':'Half-Elf', 'Origin':'Rivendell', 'Attack':6, 'Defense':4 } );
+
+// Creation of arrays for as yet misc. functions.
+let characterArray = [];
+
+function makeCharacterArray () {
+
+  characterArray.push ( gandalf );
+
+  characterArray.push ( bilbo );
+
+  characterArray.push ( frodo );
+
+  characterArray.push ( aragorn );
+
+  characterArray.push ( legolas );
+
+  characterArray.push ( arwen );
+
+}
+
+makeCharacterArray ();
+
+let hobbitArray = [];
+
+function makeHobbitArray () {
+
+  characterArray.filter ( ( item ) => {
+
+    if ( item.Race == 'Hobbit' ) hobbitArray.push ( item );
 
   });
 
 }
 
-createCharacter ( characterInfo );
+makeHobbitArray ();
+
+let attackValueArray = [];
+
+function makeAttackValueArray () {
+
+  attackValueArray.filter ( ( item ) => {
+
+    if ( item.Attack > 5 ) attackValueArray.push ( item );
+
+  });
+
+}
+
+makeAttackValueArray ();
+
+// Add a weapon to a character
+
+function addWeapon () {
+
+  characterArray.forEach ( ( item ) => {
+
+    if ( item.Name == 'Gandalf the White' ) item.Weapon = 'Wizard Staff';
+    if ( item.Name == 'Bilbo Baggins' ) item.Weapon = 'The One Ring';
+    if ( item.Name == 'Frodo Baggins' ) item.Weapon = 'String and Barrow Blade';
+    if ( item.Name == 'Aragorn son of Arathorn' ) item.Weapon = 'Anduril';
+    if ( item.Name == 'Legolas' ) item.Weapon = 'Bow and Arrow';
+    if ( item.Name == 'Arwen Undomiel' ) item.Weapon = 'Hadhafang';
+
+  });
+}
+
+addWeapon ();
+
+// Log info:
+
+characterArray.forEach ( ( item ) => {
+
+  console.log ( item.Name );
+  console.log ( item.Nickname );
+  console.log ( item.Race );
+  console.log ( item.Origin );
+  console.log ( item.Weapon );
+  console.log ( item.Attack );
+  console.log ( item.Defense );
+
+  item.Describe ( item.Describe )
+
+  /*
+  
+  ** This is functional but as you can see the abover line is a much easier call.
+  ** although the below would be useful as a search function if their were many 
+  ** array elements and you needed to find a specific one.
+  
+  characterArray.find ( ( item ) => {
+
+    if ( item.Name == 'Aragorn son of Arathorn' ) item.Describe ( aragorn )
+
+  });
+  
+  */
+  
+  item.evaluateFight ( bilbo )
+
+  console.log ( '\n' );
+
+});
 
 
 /*
