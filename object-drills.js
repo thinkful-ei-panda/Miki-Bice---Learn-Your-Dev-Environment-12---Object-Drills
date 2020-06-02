@@ -394,12 +394,15 @@ let equippedCharacter = [
   createEquippedCharacter("Arwen Undomiel", "arwen", "Half-Elf", "Rivendell", 10, 10, "Hadhafang")
 ];
 
-/* 8.
+/*
+
+8.
 Write a function findOne() that takes in the following two arguments:
 
 arr - array of Heroes objects to search through
 query - object with one or more key/value pairs that must exactly match the target Hero
 The first matching result should be returned even if multiple match. If a match isn't found, return null
+
 */
 
 const HEROES = [
@@ -429,3 +432,60 @@ const HEROES = [
   
   let query = {squad: 'Justice League'};
   console.log(findOne(HEROES, query));
+
+  /*
+
+8a. BONUS II: A Database Method
+Let's create a fake database in memory with the same dataset:
+
+const Database = {
+  store: {
+    heroes: [
+      { id: 1, name: 'Captain America', squad: 'Avengers' },
+      { id: 2, name: 'Iron Man', squad: 'Avengers' },
+      { id: 3, name: 'Spiderman', squad: 'Avengers' },
+      { id: 4, name: 'Superman', squad: 'Justice League' },
+      { id: 5, name: 'Wonder Woman', squad: 'Justice League' },
+      { id: 6, name: 'Aquaman', squad: 'Justice League' },
+      { id: 7, name: 'Hulk', squad: 'Avengers' },
+    ]
+  }
+};
+Add a method to Database called findOne and have it behave the same as the findOne function above. However, instead of referencing a HEROES array in the global scope, it should pull from the store in the Database. HINT: You'll want to use this for this...
+
+The usage should be:
+
+Database.findOne({ id: 2 });
+=> { id: 2, name: 'Iron Man', squad: 'Avengers' }
+
+*/
+
+const Database = {
+  store: {
+    heroes: [
+      { id: 1, name: 'Captain America', squad: 'Avengers' },
+      { id: 2, name: 'Iron Man', squad: 'Avengers' },
+      { id: 3, name: 'Spiderman', squad: 'Avengers' },
+      { id: 4, name: 'Superman', squad: 'Justice League' },
+      { id: 5, name: 'Wonder Woman', squad: 'Justice League' },
+      { id: 6, name: 'Aquaman', squad: 'Justice League' },
+      { id: 7, name: 'Hulk', squad: 'Avengers' },
+    ]
+  },
+  findOne(query) {
+    for(let i = 0; i < this.store.heroes.length; i++) {
+      let count = 0;
+      for(let key in query){
+        if(key in this.store.heroes[i] && this.store.heroes[i][key] === query[key]){
+          count ++;
+        }
+      }
+      if(count === Object.keys(query).length) {
+        return this.store.heroes[i];
+      }
+    }
+    return null;
+  }
+};
+
+console.log(Database.findOne({id:2}))
