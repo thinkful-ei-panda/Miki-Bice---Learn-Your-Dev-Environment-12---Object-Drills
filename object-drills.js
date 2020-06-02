@@ -246,6 +246,12 @@ How would you change the factory function and other methods?
 
 */
 
+/*
+
+BICE'S SOLUTION TO #7
+
+*/
+
 let character = {
 
   { Name:'Gandalf the White', 'Nickname':'gandalf', 'Race':'Wizard', 'Origin':'Middle Earth', 'Attack':'10', 'Defense':'6' },
@@ -300,6 +306,93 @@ function createCharacter ( arr ) {
 }
 
 createCharacter ( characterInfo );
+
+
+/*
+
+MIKI'S SOLUTION TO #7
+
+*/
+
+function createCharacter(name, nickname, race, origin, attack, defense) {
+  return {
+    name,
+    nickname,
+    race,
+    origin,
+    attack,
+    defense,
+    describe () {
+      return(`${this.name} is a ${this.race} from ${this.origin}`);
+    },
+    evaluateFight(opponent) {
+      return `Your opponent takes ${this.attack - opponent.defense} and you receive ${this.defense - opponent.defense}`
+    }
+  }
+}
+
+const gandalf = createCharacter("Gandalf the White", "gandalf", "Wizard", "Middle Earth", 10, 6)
+const opponent = createCharacter("Bilbo Baggins", "bilbo", "Hobbit", "The Shire", 2, 1)
+console.log(gandalf.evaluateFight(opponent));
+
+let characters = [
+  createCharacter("Gandalf the White", "gandalf", "Wizard", "Middle Earth", 10, 6),
+  createCharacter("Bilbo Baggins", "bilbo", "Hobbit", "The Shire", 2, 1),
+  createCharacter("Frodo Baggins", "frodo", "Hobbit", "The Shire", 3, 2),
+  createCharacter("Aragorn son of Arathorn", "aragorn", "Man", "Dunnedain", 6, 8),
+  createCharacter("Legolas", "legolas", "Elf", "Woodland Realm", 8, 5),
+  createCharacter("Arwen Undomiel", "arwen", "Half-Elf", "Rivendell", 10, 10)
+];
+
+let match = characters.find(function(attr) {
+  for (let x in attr) {
+    if (attr[x] == "aragorn") {
+      return attr;
+    }
+  }
+})
+
+console.log(match);
+console.log(match.describe());
+
+let hobbit = characters.filter(function(attr) {
+  return attr.race == "Hobbit";
+})
+
+console.log(hobbit);
+
+let attackAboveFive = characters.filter(function(attr) {
+  return attr.attack > 5;
+})
+
+console.log(attackAboveFive);
+
+function createEquippedCharacter(name, nickname, race, origin, attack, defense, weapon) {
+  return {
+    name,
+    nickname,
+    race,
+    origin,
+    attack,
+    defense,
+    weapon,
+    describe () {
+      return(`${this.name} is a ${this.race} from ${this.origin} who uses ${this.weapon}`);
+    },
+    evaluateFight(opponent) {
+      return `Your opponent takes ${this.attack - opponent.defense} and you receive ${this.defense - opponent.defense}`
+    }
+  }
+}
+
+let equippedCharacter = [
+  createEquippedCharacter("Gandalf the White", "gandalf", "Wizard", "Middle Earth", 10, 6, "A Wizard Staff"),
+  createEquippedCharacter("Bilbo Baggins", "bilbo", "Hobbit", "The Shire", 2, 1, "The Ring"),
+  createEquippedCharacter("Frodo Baggins", "frodo", "Hobbit", "The Shire", 3, 2, "String and Barrow Blade"),
+  createEquippedCharacter("Aragorn son of Arathorn", "aragorn", "Man", "Dunnedain", 6, 8, "Anduril"),
+  createEquippedCharacter("Legolas", "legolas", "Elf", "Woodland Realm", 8, 5, "Bow and Arrow"),
+  createEquippedCharacter("Arwen Undomiel", "arwen", "Half-Elf", "Rivendell", 10, 10, "Hadhafang")
+];
 
 /* 8.
 Write a function findOne() that takes in the following two arguments:
