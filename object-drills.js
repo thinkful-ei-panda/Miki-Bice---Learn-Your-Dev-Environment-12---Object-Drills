@@ -217,44 +217,30 @@ The first matching result should be returned even if multiple match. If a match 
 
 */
 
-
-
 const HEROES = [
-  { id: 1, name: 'Captain America', squad: 'Avengers' },
-  { id: 2, name: 'Iron Man', squad: 'Avengers' },
-  { id: 3, name: 'Spiderman', squad: 'Avengers' },
-  { id: 4, name: 'Superman', squad: 'Justice League' },
-  { id: 5, name: 'Wonder Woman', squad: 'Justice League' },
-  { id: 6, name: 'Aquaman', squad: 'Justice League' },
-  { id: 7, name: 'Hulk', squad: 'Avengers' },
-];
-
-function findOne(arr, query) {
-    let result;
-    arr.forEach(function(item) {
-        for (let x in item) {
-            for (let y in query) {
-                if (item[x] == query[y]) {
-                    return item;
-                }
-            }
+    { id: 1, name: 'Captain America', squad: 'Avengers' },
+    { id: 2, name: 'Iron Man', squad: 'Avengers' },
+    { id: 3, name: 'Spiderman', squad: 'Avengers' },
+    { id: 4, name: 'Superman', squad: 'Justice League' },
+    { id: 5, name: 'Wonder Woman', squad: 'Justice League' },
+    { id: 6, name: 'Aquaman', squad: 'Justice League' },
+    { id: 7, name: 'Hulk', squad: 'Avengers' },
+  ];
+  
+  function findOne(arr, query) {
+    for(let i = 0; i < arr.length; i++) {
+      let count = 0;
+      for(let key in query){
+        if(key in arr[i] && arr[i][key] === query[key]){
+          count ++;
         }
-    })
-    return result;
-}
-
-console.log(findOne(HEROES, {id: 1}));
-
-const Database = {
-    store: {
-      heroes: [
-        { id: 1, name: 'Captain America', squad: 'Avengers' },
-        { id: 2, name: 'Iron Man', squad: 'Avengers' },
-        { id: 3, name: 'Spiderman', squad: 'Avengers' },
-        { id: 4, name: 'Superman', squad: 'Justice League' },
-        { id: 5, name: 'Wonder Woman', squad: 'Justice League' },
-        { id: 6, name: 'Aquaman', squad: 'Justice League' },
-        { id: 7, name: 'Hulk', squad: 'Avengers' },
-      ]
+      }
+      if(count === Object.keys(query).length) {
+        return arr[i];
+      }
     }
-  };
+    return null;
+  }
+  
+  let query = {squad: 'Justice League'};
+  console.log(findOne(HEROES, query));
